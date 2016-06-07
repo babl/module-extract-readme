@@ -1,0 +1,5 @@
+Host github.com
+  StrictHostKeyChecking no
+
+Host git.babl.sh
+  StrictHostKeyChecking no

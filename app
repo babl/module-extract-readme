@@ -1,10 +1,13 @@
-#!/bin/sh
+#!/bin/sh -xe
 
-if [ ! -t 0 ]; then
-  read name
-  if [ -z $name ]; then
-    unset name
-  fi
+repo=$(mktemp -d -t "babl-extract-readme.XXXXXXXXXX")
+git clone git@git.babl.sh:$MODULE $repo
+cd $repo
+readme=$(find . -type f -iname "readme.md" -maxdepth 1 | xargs cat)
+rm -rf $repo
+
+if [ -z $readme ]; then
+  echo No README found >&2
+else
+  echo "$readme" | babl babl/trigger -e EVENT=babl:repo:readme:updated -e MODULE=$MODULE
 fi
-
-echo Hello ${name-World}

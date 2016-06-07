@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+eval $(ssh-agent -s)
+
+babl-server
