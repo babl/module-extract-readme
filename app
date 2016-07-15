@@ -13,5 +13,5 @@ rm -rf $repo
 if [ -z $readme ]; then
   echo No README found >&2
 else
-  echo "$readme" | babl babl/events -e EVENT=babl:repo:readme:updated -e MODULE=$MODULE
+  echo "$readme" | babl -c queue.babl.sh:4445 --async babl/events -e EVENT=babl:repo:readme:updated -e MODULE=$MODULE
 fi
